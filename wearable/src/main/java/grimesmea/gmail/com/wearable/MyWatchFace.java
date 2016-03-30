@@ -114,7 +114,6 @@ public class MyWatchFace extends CanvasWatchFaceService {
         SimpleDateFormat hoursFormat;
         SimpleDateFormat minutesFormat;
         SimpleDateFormat dateFormat;
-        int mTapCount;
 
         /**
          * Whether the display supports fewer bits for each color in ambient mode. When true, we
@@ -240,6 +239,10 @@ public class MyWatchFace extends CanvasWatchFaceService {
         @Override
         public void onPropertiesChanged(Bundle properties) {
             super.onPropertiesChanged(properties);
+            boolean burnInProtection = properties.getBoolean(PROPERTY_BURN_IN_PROTECTION, false);
+            mHoursPaint.setTypeface(burnInProtection ? NORMAL_TYPEFACE : Typeface.DEFAULT_BOLD);
+            mHighTempPaint.setTypeface(burnInProtection ? NORMAL_TYPEFACE : Typeface.DEFAULT_BOLD);
+
             mLowBitAmbient = properties.getBoolean(PROPERTY_LOW_BIT_AMBIENT, false);
         }
 
@@ -280,32 +283,10 @@ public class MyWatchFace extends CanvasWatchFaceService {
             updateTimer();
         }
 
-        /**
-         * Captures tap event (and tap type) and toggles the background color if the user finishes
-         * a tap.
-         */
-        @Override
-        public void onTapCommand(int tapType, int x, int y, long eventTime) {
-            Resources resources = MyWatchFace.this.getResources();
-            switch (tapType) {
-                case TAP_TYPE_TOUCH:
-                    // The user has started touching the screen.
-                    break;
-                case TAP_TYPE_TOUCH_CANCEL:
-                    // The user has started a different gesture or otherwise cancelled the tap.
-                    break;
-                case TAP_TYPE_TAP:
-                    // The user has completed the tap gesture.
-                    mTapCount++;
-                    mBackgroundPaint.setColor(resources.getColor(mTapCount % 2 == 0 ?
-                            R.color.background : R.color.background2));
-                    break;
-            }
-            invalidate();
-        }
-
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
+            float centerX = bounds.width() / 2;
+
             float horizontalRuleLength = canvas.getWidth() / 6;
             float horizontalRuleYOffset = (canvas.getHeight() / 5) * 3;
 
@@ -322,15 +303,15 @@ public class MyWatchFace extends CanvasWatchFaceService {
             Date currentTime = mCalendar.getTime();
 
             String hour = hoursFormat.format(currentTime);
-            canvas.drawText(hour, canvas.getWidth() / 2, (canvas.getHeight() / 5) * 2,
+            canvas.drawText(hour, centerX, (bounds.height() / 5) * 2,
                     mHoursPaint);
 
             String minutes = minutesFormat.format(currentTime);
-            canvas.drawText(minutes, canvas.getWidth() / 2, (canvas.getHeight() / 5) * 2,
+            canvas.drawText(minutes, centerX, (bounds.height() / 5) * 2,
                     mMinutesPaint);
 
             String date = dateFormat.format(currentTime).toUpperCase();
-            canvas.drawText(date, canvas.getWidth() / 2, (canvas.getHeight() / 11) * 6,
+            canvas.drawText(date, centerX, (bounds.height() / 11) * 6,
                     mDatePaint);
 
             canvas.drawLine(
@@ -338,12 +319,12 @@ public class MyWatchFace extends CanvasWatchFaceService {
                     horizontalRuleLength * 4, horizontalRuleYOffset,
                     mHorizontalRulePaint);
 
-            String highTemp = 25 + "\u00B0";
-            canvas.drawText(highTemp, canvas.getWidth() / 2, (canvas.getHeight() / 5) * 4,
+            String highTemp = 25 + getString(R.string.degree_symbol);
+            canvas.drawText(highTemp, centerX, (bounds.height() / 5) * 4,
                     mHighTempPaint);
 
-            String lowTemp = 0 + "\u00B0";
-            canvas.drawText(lowTemp, (canvas.getWidth() / 5) * 4, (canvas.getHeight() / 5) * 4,
+            String lowTemp = 0 + getString(R.string.degree_symbol);
+            canvas.drawText(lowTemp, (bounds.width() / 5) * 4, (canvas.getHeight() / 5) * 4,
                     mLowTempPaint);
         }
 

@@ -78,6 +78,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     private static final int INDEX_MIN_TEMP = 2;
     private static final int INDEX_SHORT_DESC = 3;
     public final String LOG_TAG = SunshineSyncAdapter.class.getSimpleName();
+
     public SunshineSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
     }
@@ -304,7 +305,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     /**
      * Take the String representing the complete forecast in JSON Format and
      * pull out the data we need to construct the Strings needed for the wireframes.
-     * <p>
+     * <p/>
      * Fortunately parsing is easy:  constructor takes the JSON string and converts it
      * into an Object hierarchy for us.
      */
@@ -475,6 +476,10 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             e.printStackTrace();
             setLocationStatus(getContext(), LOCATION_STATUS_SERVER_INVALID);
         }
+    }
+
+    private void updateWearable() {
+
     }
 
     private void updateWidgets() {
