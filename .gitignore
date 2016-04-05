@@ -41,3 +41,6 @@ project.properties
 ##Gradle-based build
 .gradle
 build/
+
+##GCM configuration file
+*/google-services.json

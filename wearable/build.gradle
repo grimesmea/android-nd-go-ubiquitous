@@ -1,12 +1,11 @@
 apply plugin: 'com.android.application'
 
-
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "grimesmea.gmail.com.wearable"
+        applicationId "com.example.android.sunshine.app"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
