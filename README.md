@@ -1,7 +1,9 @@
-Advanced Android Sample App
+Android Nanodegree Sunshine App
 ===================================
 
-Synchronizes weather information from OpenWeatherMap on Android Phones and Tablets. Used in the Udacity Advanced Android course.
+Synchronizes weather information from OpenWeatherMap on Android Phones and Tablets. Used in the Udacity Advanced Android course. See the original repository at https://github.com/udacity/Advanced_Android_Development for more information.
+
+Extended to include a watch face for Android Wear.
 
 Pre-requisites
 --------------
@@ -16,20 +18,13 @@ Android Support RecyclerView 22.2.0
 Google Play Services GCM 7.0.0
 BumpTech Glide 3.5.2
 
+OpenWeatherMap API Key
+--------------------------
+In order for the app to query the OpenWeatherMap API, a personal API key will need to be obtained by creating a openweathermap.org account (http://openweathermap.org/api) and requesting an API key.
 
-Getting Started
----------------
-This sample uses the Gradle build system.  To build this project, use the
-"gradlew build" command or use "Import Project" in Android Studio.
+Once obtained, the following line will need to be added to the local.properties file for project:
 
-Support
--------
-
-- Google+ Community: https://plus.google.com/communities/105153134372062985968
-- Stack Overflow: http://stackoverflow.com/questions/tagged/android
-
-Patches are encouraged, and may be submitted by forking this project and
-submitting a pull request through GitHub. Please see CONTRIBUTING.md for more details.
+OPEN_WEATHER_MAP_API_KEY=[YOUR API KEY HERE]
 
 License
 -------
@@ -49,4 +44,3 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
 License for the specific language governing permissions and limitations under
 the License.
-
