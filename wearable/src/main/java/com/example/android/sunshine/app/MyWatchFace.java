@@ -35,6 +35,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.WindowInsets;
 
@@ -167,8 +168,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
             setWatchFaceStyle(new WatchFaceStyle.Builder(MyWatchFace.this)
                     .setCardPeekMode(WatchFaceStyle.PEEK_MODE_VARIABLE)
                     .setBackgroundVisibility(WatchFaceStyle.BACKGROUND_VISIBILITY_INTERRUPTIVE)
+                    .setHotwordIndicatorGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL)
                     .setShowSystemUiTime(false)
-                    .setAcceptsTapEvents(true)
                     .build());
 
             mBackgroundPaint = new Paint();
@@ -387,12 +388,12 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
                 if (weatherConditionBitmap != null) {
                     canvas.drawBitmap(weatherConditionBitmap,
-                            (boundsWidth / 11), (boundsHeight / 5) * 3, mWeatherIconPaint);
+                            (boundsWidth / 10), (boundsHeight / 5) * 3, mWeatherIconPaint);
                 }
 
                 canvas.drawText(highTemp, boundsWidth / 2, (boundsHeight / 5) * 4,
                         mHighTempPaint);
-                canvas.drawText(lowTemp, (boundsWidth / 5) * 4, (boundsHeight / 5) * 4,
+                canvas.drawText(lowTemp, (boundsWidth / 9) * 7, (boundsHeight / 5) * 4,
                         mLowTempPaint);
             }
         }
